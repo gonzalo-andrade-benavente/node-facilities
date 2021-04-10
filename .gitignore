@@ -1,8 +1,5 @@
 node_modules
 gcloud
-coverage
-.nyc_output
-/.DS_Store
-package-lock.json
+/.package-lock.json
 .vscode/
-src/.DS_Store
+
