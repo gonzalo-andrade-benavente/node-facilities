@@ -1,6 +1,7 @@
 'use strict';
 
 const { response, request } = require('express');
+const conn = require('../database/config');
 
 const validateHeader = (req = request, res = response, next) => {
 
@@ -19,11 +20,15 @@ const validateHeader = (req = request, res = response, next) => {
 
 }
 
-const validateCollection = (req = request, res = response, next ) => {
+const validateCollection = async (req = request, res = response, next ) => {
 
-    const countries = ['cl', 'ar', 'co', 'pe']; // Validar luego y obtener desde Firestore.
+    const db = conn.getDB();
 
-    if ( !countries.includes( req.country ) ) {
+    const collectionRef = db.collection(req.country);
+
+    const snapshot = await collectionRef.get();
+
+    if ( snapshot.empty ) {
         return res.status(400).json({
             msg: 'x-country not found - collection'
         });
