@@ -1,2 +1,7 @@
 node_modules
 gcloud
+coverage
+.nyc_output
+.DS_Store
+package-lock.json
+.vscode/
